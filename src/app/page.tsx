@@ -6,6 +6,7 @@ import {Product} from "@/models/Product";
 import {RefProduct} from "@/models/RefProduct";
 import {FloatingButton} from "@/components/FloatingButton";
 import {ModalGen} from "@/components/ModalGen";
+import {Header} from "@/components/Header";
 
 export default function Home() {
   const [open, setOpen] = useState(false);
@@ -17,11 +18,14 @@ export default function Home() {
     [open, products, refProducts]);
 
   return (
-    <Context.Provider value={contextValue}>
-      <div className="relative">
-        <FloatingButton/>
-        <ModalGen/>
-      </div>
-    </Context.Provider>
+    <>
+      <Header/>
+      <Context.Provider value={contextValue}>
+        <div className="relative">
+          <FloatingButton/>
+          <ModalGen/>
+        </div>
+      </Context.Provider>
+    </>
   );
 }

@@ -17,8 +17,10 @@ export type ContextProps = {
 export const Context = createContext({} as ContextProps);
 
 export type FormContextProps = {
-  date: Dayjs;
-  setDate: StateSetter<Dayjs>;
+  receptionDate: Dayjs;
+  setReceptionDate: StateSetter<Dayjs>;
+  deliveryDate: Dayjs;
+  setDeliveryDate: StateSetter<Dayjs>;
   company: string;
   setCompany: StateSetter<string>;
   type: string;

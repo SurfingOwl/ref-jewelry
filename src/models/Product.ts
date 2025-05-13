@@ -3,5 +3,6 @@ export type Product = {
   name: string;
   company: string;
   count: number;
-  date: Date;
+  receptionDate: Date;
+  deliveryDate: Date;
 }

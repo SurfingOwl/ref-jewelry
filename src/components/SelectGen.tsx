@@ -1,5 +1,5 @@
-import {InputLabel, MenuItem, Select, SelectChangeEvent} from "@mui/material";
-import {useContext} from "react";
+import {MenuItem, Select, SelectChangeEvent} from "@mui/material";
+import {CSSProperties, useContext} from "react";
 import {FormContext} from "@/app/context";
 
 type SelectProps = {
@@ -17,14 +17,19 @@ export const SelectGen = ({label, elements, company}: SelectProps) => {
     else context.setType(e.target.value);
   }
 
+  const placeHolderGen = (): CSSProperties | undefined => {
+    if (context.company == '' || context.type == '') return {color: 'grey'} as CSSProperties;
+    return undefined;
+  }
+
   return (
-    <>
-      <InputLabel>{label}</InputLabel>
-      <Select label={label} value={company ? context.company : context.type} onChange={onChange}>
-        {elements.map((el: string, index: number) => (
-          <MenuItem key={index} value={el}>{el}</MenuItem>
-        ))}
-      </Select>
-    </>
+    <Select defaultValue={''} value={company ? context.company : context.type}
+            onChange={onChange} variant="outlined" displayEmpty
+            style={placeHolderGen()}>
+      <MenuItem value={''} style={{color: "grey"}}>{label}</MenuItem>
+      {elements.map((el: string, index: number) => (
+        <MenuItem key={index} value={el}>{el}</MenuItem>
+      ))}
+    </Select>
   );
 }
