@@ -5,6 +5,8 @@ import {Context} from "@/app/context";
 import {companies, types} from "@/models/constants";
 import {products} from "@/models/mockrefs";
 
+// TODO implement multiple filters for different possible ways to filter to insure intersect works correctly + add date range filter
+// TODO see https://echarts.apache.org/ to implement data visualisation
 export const FilterButton = () => {
   // const {products, setFilteredProducts} = useContext(Context);
   const {setFilteredProducts} = useContext(Context);
