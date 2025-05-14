@@ -24,6 +24,11 @@ export const headCells: readonly HeadCell[] = [
     label: 'Référence produit',
   },
   {
+    id: 'type',
+    numeric: false,
+    label: 'Type de travail',
+  },
+  {
     id: 'company',
     numeric: false,
     label: 'Maison',

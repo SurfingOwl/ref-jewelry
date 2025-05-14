@@ -8,7 +8,7 @@ export const FloatingButton = () => {
   const open = () => setOpen(true);
 
   return (
-    <Box sx={{'& > :not(style)': {m: 1}}} className="fixed bottom-4 right-4">
+    <Box sx={{'& > :not(style)': {m: 1}}} className="fixed bottom-24 right-4">
       <Fab color="primary" aria-label="add" onClick={open}>
         <AddIcon/>
       </Fab>

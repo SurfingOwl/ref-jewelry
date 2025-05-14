@@ -12,18 +12,19 @@ import {DataTable} from "@/components/DataTable";
 export default function Home() {
   const [open, setOpen] = useState(false);
   const [products, setProducts] = useState<Product[]>([]);
+  const [filteredProducts, setFilteredProducts] = useState<Product[]>([]);
   const [refProducts, setRefProducts] = useState<RefProduct[]>([]);
 
   const contextValue = useMemo(() =>
-      ({open, setOpen, products, setProducts, refProducts, setRefProducts}),
-    [open, products, refProducts]);
+      ({open, setOpen, products, setProducts, filteredProducts, setFilteredProducts, refProducts, setRefProducts}),
+    [open, products, refProducts, filteredProducts]);
 
   return (
     <div className="flex flex-col items-center justify-center w-full">
       <Header/>
       <Context.Provider value={contextValue}>
         <div className="relative flex w-full justify-center m-2 p-3">
-          <DataTable />
+          <DataTable/>
           <FloatingButton/>
           <ModalGen/>
         </div>

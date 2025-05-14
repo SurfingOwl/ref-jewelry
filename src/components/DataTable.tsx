@@ -1,5 +1,5 @@
 import {Product} from "@/models/Product";
-import {MouseEvent, useMemo, useState} from "react";
+import {ChangeEvent, MouseEvent, useContext, useMemo, useState} from "react";
 import {
   Box,
   Paper,
@@ -14,9 +14,10 @@ import {
 } from "@mui/material";
 import {visuallyHidden} from "@mui/utils";
 import {getComparator} from "@/components/DataTable.utils";
-import {products} from "@/models/mockrefs";
 import {EnhancedTableProps, Order} from "@/models/types";
 import {headCells} from "@/models/constants";
+import {FilterButton} from "@/components/FilterButton";
+import {Context} from "@/app/context";
 
 const EnhancedTableHead = (props: EnhancedTableProps) => {
   const {order, orderBy, onRequestSort} =
@@ -52,7 +53,7 @@ const EnhancedTableHead = (props: EnhancedTableProps) => {
 };
 
 export const DataTable = () => {
-  // const {products} = useContext(Context);
+  const {filteredProducts} = useContext(Context);
 
   const [order, setOrder] = useState<Order>('asc');
   const [orderBy, setOrderBy] = useState<keyof Product>('name');
@@ -72,25 +73,26 @@ export const DataTable = () => {
     setPage(newPage);
   };
 
-  const handleChangeRowsPerPage = (event: React.ChangeEvent<HTMLInputElement>) => {
+  const handleChangeRowsPerPage = (event: ChangeEvent<HTMLInputElement>) => {
     setRowsPerPage(parseInt(event.target.value, 10));
     setPage(0);
   };
 
   const emptyRows =
-    page > 0 ? Math.max(0, (1 + page) * rowsPerPage - products.length) : 0;
+    page > 0 ? Math.max(0, (1 + page) * rowsPerPage - filteredProducts.length) : 0;
 
   const visibleRows = useMemo(
     () =>
-      [...products]
+      [...filteredProducts]
         .sort(getComparator(order, orderBy))
         .slice(page * rowsPerPage, page * rowsPerPage + rowsPerPage),
-    [order, orderBy, page, rowsPerPage],
+    [order, orderBy, page, rowsPerPage, filteredProducts],
   );
 
   return (
     <Box sx={{width: '100%'}}>
       <Paper sx={{width: '100%', mb: 2}}>
+        <FilterButton/>
         <TableContainer>
           <Table
             sx={{minWidth: 750}}
@@ -101,7 +103,7 @@ export const DataTable = () => {
               order={order}
               orderBy={orderBy}
               onRequestSort={handleRequestSort}
-              rowCount={products.length}
+              rowCount={filteredProducts.length}
             />
             <TableBody>
               {visibleRows.map((row, index) => {
@@ -122,6 +124,7 @@ export const DataTable = () => {
                     >
                       {row.name}
                     </TableCell>
+                    <TableCell align="left">{row.type}</TableCell>
                     <TableCell align="left">{row.company}</TableCell>
                     <TableCell align="left">{row.count}</TableCell>
                     <TableCell align="left">{row.receptionDate.toLocaleDateString()}</TableCell>
@@ -143,7 +146,7 @@ export const DataTable = () => {
         </TableContainer>
         <TablePagination
           component="div"
-          count={products.length}
+          count={filteredProducts.length}
           rowsPerPage={rowsPerPage}
           page={page}
           onPageChange={handleChangePage}

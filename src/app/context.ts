@@ -10,6 +10,8 @@ export type ContextProps = {
   setOpen: StateSetter<boolean>;
   products: Product[];
   setProducts: StateSetter<Product[]>;
+  filteredProducts: Product[];
+  setFilteredProducts: StateSetter<Product[]>;
   refProducts: RefProduct[];
   setRefProducts: StateSetter<RefProduct[]>;
 };
