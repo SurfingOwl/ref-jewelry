@@ -1,7 +1,9 @@
 export const Header = () => {
   return (
-    <div className="top-0 absolute flex ">
-      <h1></h1>
-    </div>
+    <header className="w-full flex justify-between z-10">
+      <div className="w-full flex gap-2">
+        <h1 className="self-center text-lg font-semibold">REF JEWELRY HELPER</h1>
+      </div>
+    </header>
   );
 }

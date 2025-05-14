@@ -7,6 +7,7 @@ import {RefProduct} from "@/models/RefProduct";
 import {FloatingButton} from "@/components/FloatingButton";
 import {ModalGen} from "@/components/ModalGen";
 import {Header} from "@/components/Header";
+import {DataTable} from "@/components/DataTable";
 
 export default function Home() {
   const [open, setOpen] = useState(false);
@@ -18,14 +19,15 @@ export default function Home() {
     [open, products, refProducts]);
 
   return (
-    <>
+    <div className="flex flex-col items-center justify-center w-full">
       <Header/>
       <Context.Provider value={contextValue}>
-        <div className="relative">
+        <div className="relative flex w-full justify-center m-2 p-3">
+          <DataTable />
           <FloatingButton/>
           <ModalGen/>
         </div>
       </Context.Provider>
-    </>
+    </div>
   );
 }
