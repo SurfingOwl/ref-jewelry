@@ -1,13 +1,6 @@
 import {DateTimePicker, LocalizationProvider} from "@mui/x-date-pickers";
 import {AdapterDayjs} from "@mui/x-date-pickers/AdapterDayjs";
-import {Dayjs} from "dayjs";
-import {StateSetter} from "@/app/types";
-
-type DatePickerProps = {
-  date: Dayjs;
-  label: string;
-  setDate: StateSetter<Dayjs>;
-}
+import {DatePickerProps} from "@/models/types";
 
 export const DatePicker = ({date, label, setDate}: DatePickerProps) => {
 

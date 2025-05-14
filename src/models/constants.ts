@@ -1,3 +1,5 @@
+import {HeadCell} from "@/models/types";
+
 export const companies = [
   'Chaumet',
   'Fred',
@@ -14,6 +16,33 @@ export const types = [
   'SAV',
   'R. Rh',
   'Gravure'
+];
+export const headCells: readonly HeadCell[] = [
+  {
+    id: 'name',
+    numeric: false,
+    label: 'Référence produit',
+  },
+  {
+    id: 'company',
+    numeric: false,
+    label: 'Maison',
+  },
+  {
+    id: 'count',
+    numeric: false,
+    label: 'Nombre de pièces',
+  },
+  {
+    id: 'receptionDate',
+    numeric: false,
+    label: 'Date de réception',
+  },
+  {
+    id: 'deliveryDate',
+    numeric: false,
+    label: 'Date de livraison',
+  },
 ];
 
 export const companyLabel = "Maison";

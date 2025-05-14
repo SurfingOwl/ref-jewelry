@@ -1,10 +1,7 @@
 import {ChangeEvent, useContext} from "react";
 import {FormContext} from "@/app/context";
 import {TextField} from "@mui/material";
-
-type NumberPickerProps = {
-  label: string;
-}
+import {NumberPickerProps} from "@/models/types";
 
 export const NumberPicker = ({label}: NumberPickerProps) => {
   const {count, setCount} = useContext(FormContext);

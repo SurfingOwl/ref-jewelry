@@ -1,12 +1,8 @@
 import {MenuItem, Select, SelectChangeEvent} from "@mui/material";
 import {CSSProperties, useContext} from "react";
 import {FormContext} from "@/app/context";
+import {SelectProps} from "@/models/types";
 
-type SelectProps = {
-  label: string;
-  elements: string[];
-  company?: boolean;
-}
 
 export const SelectGen = ({label, elements, company}: SelectProps) => {
 

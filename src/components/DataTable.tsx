@@ -15,49 +15,8 @@ import {
 import {visuallyHidden} from "@mui/utils";
 import {getComparator} from "@/components/DataTable.utils";
 import {products} from "@/models/mockrefs";
-
-export type Order = 'asc' | 'desc';
-
-type HeadCell = {
-  id: keyof Product;
-  label: string;
-  numeric: boolean;
-}
-
-type EnhancedTableProps = {
-  onRequestSort: (event: MouseEvent<unknown>, property: keyof Product) => void;
-  order: Order;
-  orderBy: string;
-  rowCount: number;
-}
-
-const headCells: readonly HeadCell[] = [
-  {
-    id: 'name',
-    numeric: false,
-    label: 'Référence produit',
-  },
-  {
-    id: 'company',
-    numeric: false,
-    label: 'Maison',
-  },
-  {
-    id: 'count',
-    numeric: false,
-    label: 'Nombre de pièces',
-  },
-  {
-    id: 'receptionDate',
-    numeric: false,
-    label: 'Date de réception',
-  },
-  {
-    id: 'deliveryDate',
-    numeric: false,
-    label: 'Date de livraison',
-  },
-];
+import {EnhancedTableProps, Order} from "@/models/types";
+import {headCells} from "@/models/constants";
 
 const EnhancedTableHead = (props: EnhancedTableProps) => {
   const {order, orderBy, onRequestSort} =

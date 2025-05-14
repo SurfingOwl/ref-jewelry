@@ -1,0 +1,41 @@
+import {Product} from "@/models/Product";
+import {MouseEvent} from "react";
+import {RefProduct} from "@/models/RefProduct";
+import {Dayjs} from "dayjs";
+import {StateSetter} from "@/app/types";
+
+export type Order = 'asc' | 'desc';
+
+export type HeadCell = {
+  id: keyof Product;
+  label: string;
+  numeric: boolean;
+}
+
+export type EnhancedTableProps = {
+  onRequestSort: (event: MouseEvent<unknown>, property: keyof Product) => void;
+  order: Order;
+  orderBy: string;
+  rowCount: number;
+}
+
+export type SelectProps = {
+  label: string;
+  elements: string[];
+  company?: boolean;
+}
+
+export type FreeAutoCompleteProps = {
+  options: RefProduct[];
+};
+
+export type DatePickerProps = {
+  date: Dayjs;
+  label: string;
+  setDate: StateSetter<Dayjs>;
+}
+
+export type NumberPickerProps = {
+  label: string;
+}
+

@@ -2,10 +2,7 @@ import {useContext} from "react";
 import {Autocomplete, createFilterOptions, TextField} from "@mui/material";
 import {RefProduct} from "@/models/RefProduct";
 import {FormContext} from "@/app/context";
-
-type FreeAutoCompleteProps = {
-  options: RefProduct[];
-};
+import {FreeAutoCompleteProps} from "@/models/types";
 
 
 export const FreeAutoComplete = ({options}: FreeAutoCompleteProps) => {
