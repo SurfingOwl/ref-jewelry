@@ -11,7 +11,8 @@ export const FilterButton = () => {
   // const {products, setFilteredProducts} = useContext(Context);
   const {setFilteredProducts} = useContext(Context);
 
-  const [filters, setFilters] = useState<string[]>([]);
+  const [typeFilters, setTypeFilters] = useState<string[]>([]);
+  const [companyFilters, setCompanyFilters] = useState<string[]>([]);
   const [anchorEl, setAnchorEl] = useState<HTMLButtonElement | null>(null);
   const open = Boolean(anchorEl);
 
@@ -23,24 +24,37 @@ export const FilterButton = () => {
     setAnchorEl(null);
   };
 
-  const handleCheck = (filter: string) => {
-    if (filters.some(f => f === filter)) {
-      setFilters(filters.filter(f => f !== filter));
+  const handleTypeCheck = (filter: string) => {
+    if (typeFilters.some(f => f === filter)) {
+      setTypeFilters(typeFilters.filter(f => f !== filter));
     } else {
-      setFilters([...filters, filter])
+      setTypeFilters([...typeFilters, filter])
+    }
+  };
+
+  const handleCompanyCheck = (filter: string) => {
+    if (companyFilters.some(f => f === filter)) {
+      setCompanyFilters(companyFilters.filter(f => f !== filter));
+    } else {
+      setCompanyFilters([...companyFilters, filter])
     }
   };
 
   useEffect(() => {
-    if (filters.length > 0) {
+    const isTypeFiltersNotEmpty = typeFilters.length > 0;
+    const isCompanyFiltersNotEmpty = companyFilters.length > 0;
+
+    if (isTypeFiltersNotEmpty || isCompanyFiltersNotEmpty) {
       setFilteredProducts(
-        products.filter((product) =>
-          filters.some(filter => product.type === filter)
-          || filters.some(filter => product.company === filter)));
+        products.filter((product) => {
+          if (isTypeFiltersNotEmpty && !typeFilters.some(filter => product.type === filter)) return false;
+          if (isCompanyFiltersNotEmpty && !companyFilters.some(filter => product.company === filter)) return false;
+          return true;
+        }));
     } else {
       setFilteredProducts(products);
     }
-  }, [filters]);
+  }, [typeFilters, companyFilters]);
 
   return (
     <>
@@ -63,7 +77,8 @@ export const FilterButton = () => {
             {companies.map(company => (
               <FormControlLabel key={`label-${company}`}
                                 label={company}
-                                control={<Checkbox onClick={() => handleCheck(company)} key={`checkbox-${company}`}/>}>
+                                control={<Checkbox onClick={() => handleCompanyCheck(company)}
+                                                   key={`checkbox-${company}`}/>}>
               </FormControlLabel>
             ))}
           </FormGroup>
@@ -72,10 +87,11 @@ export const FilterButton = () => {
             {types.map(type => (
               <FormControlLabel key={`label-${type}`}
                                 label={type}
-                                control={<Checkbox onClick={() => handleCheck(type)} key={`checkbox-${type}`}/>}>
+                                control={<Checkbox onClick={() => handleTypeCheck(type)} key={`checkbox-${type}`}/>}>
               </FormControlLabel>
             ))}
           </FormGroup>
+          <Divider orientation="vertical" flexItem/>
         </div>
       </Popover>
     </>

@@ -1,5 +1,5 @@
-import {Order} from "@/components/DataTable";
 import {Product} from "@/models/Product";
+import {Order} from "@/models/types";
 
 export function descendingComparator<T>(a: T, b: T, orderBy: keyof T) {
   if (b[orderBy] < a[orderBy]) {
