@@ -15,8 +15,8 @@ export const FormGen = () => {
   const [ref, setRef] = useState<RefProduct>({} as RefProduct);
   const [company, setCompany] = useState<string>('');
   const [type, setType] = useState<string>('');
-  const [receptionDate, setReceptionDate] = useState<Dayjs>(dayjs(Date.now()));
-  const [deliveryDate, setDeliveryDate] = useState<Dayjs>(dayjs(Date.now()));
+  const [receptionDate, setReceptionDate] = useState<Dayjs | null>(dayjs(Date.now()));
+  const [deliveryDate, setDeliveryDate] = useState<Dayjs | null>(dayjs(Date.now()));
   const [count, setCount] = useState<number>(0);
   const [cachedProduct, setCachedProduct] = useState<Product[]>([]);
 
@@ -50,8 +50,8 @@ export const FormGen = () => {
       name: ref.name,
       company: company,
       type: type,
-      receptionDate: receptionDate.toDate(),
-      deliveryDate: deliveryDate.toDate(),
+      receptionDate: receptionDate,
+      deliveryDate: deliveryDate,
       count: count,
     } as Product;
     resetForm();

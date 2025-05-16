@@ -30,9 +30,9 @@ export type FreeAutoCompleteProps = {
 };
 
 export type DatePickerProps = {
-  date: Dayjs;
+  date: Dayjs | null;
   label: string;
-  setDate: StateSetter<Dayjs>;
+  setDate: StateSetter<Dayjs | null>;
 }
 
 export type NumberPickerProps = {

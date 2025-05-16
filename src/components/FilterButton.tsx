@@ -1,9 +1,12 @@
-import {Checkbox, Divider, FormControlLabel, FormGroup, IconButton, Popover, Tooltip} from "@mui/material";
+import {Checkbox, Divider, FormControlLabel, FormGroup, IconButton, Popover, Tooltip, Typography} from "@mui/material";
 import FilterListIcon from '@mui/icons-material/FilterList';
 import React, {MouseEvent, useContext, useEffect, useState} from "react";
 import {Context} from "@/app/context";
 import {companies, types} from "@/models/constants";
 import {products} from "@/models/mockrefs";
+import {DatePicker} from "@/components/DatePicker";
+import {Dayjs} from "dayjs";
+import {isInDeliveryRange, isInReceptionRange} from "@/components/utils";
 
 // TODO implement multiple filters for different possible ways to filter to insure intersect works correctly + add date range filter
 // TODO see https://echarts.apache.org/ to implement data visualisation
@@ -13,6 +16,10 @@ export const FilterButton = () => {
 
   const [typeFilters, setTypeFilters] = useState<string[]>([]);
   const [companyFilters, setCompanyFilters] = useState<string[]>([]);
+  const [receptionFrom, setReceptionFrom] = useState<Dayjs | null>(null);
+  const [receptionTo, setReceptionTo] = useState<Dayjs | null>(null);
+  const [deliveryFrom, setDeliveryFrom] = useState<Dayjs | null>(null);
+  const [deliveryTo, setDeliveryTo] = useState<Dayjs | null>(null);
   const [anchorEl, setAnchorEl] = useState<HTMLButtonElement | null>(null);
   const open = Boolean(anchorEl);
 
@@ -44,17 +51,19 @@ export const FilterButton = () => {
     const isTypeFiltersNotEmpty = typeFilters.length > 0;
     const isCompanyFiltersNotEmpty = companyFilters.length > 0;
 
-    if (isTypeFiltersNotEmpty || isCompanyFiltersNotEmpty) {
+    if (isTypeFiltersNotEmpty || isCompanyFiltersNotEmpty || receptionFrom || receptionTo || deliveryFrom || deliveryTo) {
       setFilteredProducts(
         products.filter((product) => {
           if (isTypeFiltersNotEmpty && !typeFilters.some(filter => product.type === filter)) return false;
           if (isCompanyFiltersNotEmpty && !companyFilters.some(filter => product.company === filter)) return false;
+          if (!isInReceptionRange(receptionTo, receptionFrom, product.receptionDate)) return false;
+          if (!isInDeliveryRange(deliveryTo, deliveryFrom, product.deliveryDate)) return false;
           return true;
         }));
     } else {
       setFilteredProducts(products);
     }
-  }, [typeFilters, companyFilters]);
+  }, [typeFilters, companyFilters, receptionFrom, receptionTo, deliveryFrom, deliveryTo]);
 
   return (
     <>
@@ -92,6 +101,19 @@ export const FilterButton = () => {
             ))}
           </FormGroup>
           <Divider orientation="vertical" flexItem/>
+          <div className={'flex flex-col gap-3'}>
+            <Typography variant="h6" className="text-gray-700 font-bold mb-4">
+              Date réception
+            </Typography>
+            <DatePicker label={'Du'} date={receptionFrom} setDate={setReceptionFrom}/>
+            <DatePicker label={'Au'} date={receptionTo} setDate={setReceptionTo}/>
+            <Divider orientation="horizontal" flexItem/>
+            <Typography variant="h6" className="text-gray-700 font-bold mb-4">
+              Date livraison
+            </Typography>
+            <DatePicker label={'Du'} date={deliveryFrom} setDate={setDeliveryFrom}/>
+            <DatePicker label={'Au'} date={deliveryTo} setDate={setDeliveryTo}/>
+          </div>
         </div>
       </Popover>
     </>

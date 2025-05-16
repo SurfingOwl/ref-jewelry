@@ -13,7 +13,7 @@ import {
   TableSortLabel
 } from "@mui/material";
 import {visuallyHidden} from "@mui/utils";
-import {getComparator} from "@/components/DataTable.utils";
+import {getComparator} from "@/components/utils";
 import {EnhancedTableProps, Order} from "@/models/types";
 import {headCells} from "@/models/constants";
 import {FilterButton} from "@/components/FilterButton";
@@ -127,8 +127,8 @@ export const DataTable = () => {
                     <TableCell align="left">{row.type}</TableCell>
                     <TableCell align="left">{row.company}</TableCell>
                     <TableCell align="left">{row.count}</TableCell>
-                    <TableCell align="left">{row.receptionDate.toLocaleDateString()}</TableCell>
-                    <TableCell align="left">{row.deliveryDate.toLocaleDateString()}</TableCell>
+                    <TableCell align="left">{row.receptionDate.toISOString()}</TableCell>
+                    <TableCell align="left">{row.deliveryDate.toISOString()}</TableCell>
                   </TableRow>
                 );
               })}
