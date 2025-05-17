@@ -1,6 +1,6 @@
-import { CSSProperties, useEffect, useRef } from "react";
-import { ECharts, EChartsOption, getInstanceByDom, init, SetOptionOpts } from "echarts";
 import { ReactEChartProps } from "@/models/types";
+import { ECharts, getInstanceByDom, init } from "echarts";
+import { useEffect, useRef } from "react";
 
 export const ReactECharts = ({ option, style, settings, loading, theme }: ReactEChartProps) => {
   const chartRef = useRef<HTMLDivElement>(null);
