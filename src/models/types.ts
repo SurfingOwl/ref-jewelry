@@ -1,10 +1,9 @@
+import { StateSetter } from "@/app/types";
 import { Product } from "@/models/Product";
-import { MouseEvent } from "react";
 import { RefProduct } from "@/models/RefProduct";
 import { Dayjs } from "dayjs";
-import { StateSetter } from "@/app/types";
 import { EChartsOption, SetOptionOpts } from "echarts";
-import { CSSProperties } from "react";
+import { CSSProperties, MouseEvent, ReactNode } from "react";
 
 export type Order = 'asc' | 'desc';
 
@@ -47,4 +46,8 @@ export type ReactEChartProps = {
   settings?: SetOptionOpts;
   loading?: boolean;
   theme?: "light" | "dark";
+}
+
+export type AuthInterceptorProps = {
+  children: ReactNode;
 }

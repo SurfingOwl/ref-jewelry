@@ -1,14 +1,15 @@
 'use client';
 
-import { Context } from "@/app/context"
-import { useMemo, useState } from "react";
+import { Context } from "@/app/context";
+import { AuthInterceptor } from "@/components/AuthInterceptor";
+import { DataTable } from "@/components/DataTable";
+import { FloatingButton } from "@/components/FloatingButton";
+import { Header } from "@/components/Header";
+import { ModalGen } from "@/components/ModalGen";
 import { Product } from "@/models/Product";
 import { RefProduct } from "@/models/RefProduct";
-import { FloatingButton } from "@/components/FloatingButton";
-import { ModalGen } from "@/components/ModalGen";
-import { Header } from "@/components/Header";
-import { DataTable } from "@/components/DataTable";
 import { SessionProvider } from "next-auth/react";
+import { useMemo, useState } from "react";
 
 export default function Home() {
   const [open, setOpen] = useState(false);
@@ -22,16 +23,18 @@ export default function Home() {
 
   return (
     <SessionProvider>
-      <div className="flex flex-col items-center justify-center w-full">
-        <Header />
-        <Context.Provider value={contextValue}>
-          <div className="relative flex w-full justify-center m-2 p-3">
-            <DataTable />
-            <FloatingButton />
-            <ModalGen />
-          </div>
-        </Context.Provider>
-      </div>
+      <AuthInterceptor>
+        <div className="flex flex-col items-center justify-center w-full">
+          <Header />
+          <Context.Provider value={contextValue}>
+            <div className="relative flex w-full justify-center m-2 p-3">
+              <DataTable />
+              <FloatingButton />
+              <ModalGen />
+            </div>
+          </Context.Provider>
+        </div>
+      </AuthInterceptor>
     </SessionProvider>
   );
 }

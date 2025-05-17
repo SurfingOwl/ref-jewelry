@@ -1,14 +1,15 @@
-import {FreeAutoComplete} from "@/components/FreeAutoComplete";
-import {SelectGen} from "@/components/SelectGen";
-import {DatePicker} from "@/components/DatePicker";
-import {useContext, useMemo, useState} from "react";
-import {Context, FormContext} from "@/app/context";
-import {companies, companyLabel, typeLabel, types} from "@/models/constants";
-import dayjs, {Dayjs} from "dayjs";
-import {RefProduct} from "@/models/RefProduct";
-import {Box, Button, Stack, Typography} from "@mui/material";
-import {Product} from "@/models/Product";
-import {NumberPicker} from "@/components/NumberPicker";
+import { FreeAutoComplete } from "@/components/FreeAutoComplete";
+import { SelectGen } from "@/components/SelectGen";
+import { DatePicker } from "@/components/DatePicker";
+import { useContext, useMemo, useState } from "react";
+import { Context, FormContext } from "@/app/context";
+import { companies, companyLabel, typeLabel, types } from "@/models/constants";
+import dayjs, { Dayjs } from "dayjs";
+import { RefProduct } from "@/models/RefProduct";
+import { Box, Button, Stack, Typography } from "@mui/material";
+import { Product } from "@/models/Product";
+import { NumberPicker } from "@/components/NumberPicker";
+import { useSession } from "next-auth/react";
 
 
 export const FormGen = () => {
@@ -19,6 +20,7 @@ export const FormGen = () => {
   const [deliveryDate, setDeliveryDate] = useState<Dayjs | null>(dayjs(Date.now()));
   const [count, setCount] = useState<number>(0);
   const [cachedProduct, setCachedProduct] = useState<Product[]>([]);
+  const { data: session } = useSession();
 
   const context = useContext(Context);
   const contextValue = useMemo(() => ({
@@ -47,6 +49,8 @@ export const FormGen = () => {
 
   const handleAdd = () => {
     const product = {
+      user: session!.user!.email,
+      id: crypto.randomUUID.toString(),
       name: ref.name,
       company: company,
       type: type,
@@ -72,12 +76,12 @@ export const FormGen = () => {
       </Typography>
 
       <Stack spacing={3}>
-        <FreeAutoComplete options={context.refProducts}/>
-        <SelectGen label={companyLabel} elements={companies} company={true}/>
-        <SelectGen label={typeLabel} elements={types}/>
-        <NumberPicker label={'Nombre de pièces'}/>
-        <DatePicker label={'Date de reception'} date={receptionDate} setDate={setReceptionDate}/>
-        <DatePicker label={'Date de livraison'} date={deliveryDate} setDate={setDeliveryDate}/>
+        <FreeAutoComplete options={context.refProducts} />
+        <SelectGen label={companyLabel} elements={companies} company={true} />
+        <SelectGen label={typeLabel} elements={types} />
+        <NumberPicker label={'Nombre de pièces'} />
+        <DatePicker label={'Date de reception'} date={receptionDate} setDate={setReceptionDate} />
+        <DatePicker label={'Date de livraison'} date={deliveryDate} setDate={setDeliveryDate} />
       </Stack>
 
       <Box className="flex justify-end gap-4 mt-6">

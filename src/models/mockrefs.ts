@@ -3,6 +3,7 @@ import dayjs from "dayjs";
 
 export const products: Product[] = [
   {
+    "user": "USER-1",
     "id": "UUID-1",
     "name": "12-134",
     "company": "Fred",
@@ -12,6 +13,7 @@ export const products: Product[] = [
     "deliveryDate": dayjs(new Date("Tue May 13 2025 10:33:22 GMT+0200 (heure d’été d’Europe centrale)")),
   },
   {
+    "user": "USER-2",
     "id": "UUID-2",
     "name": "83-139",
     "company": "Fred",
@@ -21,6 +23,7 @@ export const products: Product[] = [
     "deliveryDate": dayjs(new Date("Tue May 13 2025 10:33:22 GMT+0200 (heure d’été d’Europe centrale)")),
   },
   {
+    "user": "USER-3",
     "id": "UUID-3",
     "name": "27-470",
     "company": "Chaumet",
