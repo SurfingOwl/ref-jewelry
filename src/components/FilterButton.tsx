@@ -1,18 +1,17 @@
-import {Checkbox, Divider, FormControlLabel, FormGroup, IconButton, Popover, Tooltip, Typography} from "@mui/material";
+import { Context } from "@/app/context";
+import { DatePicker } from "@/components/DatePicker";
+import { isInDeliveryRange, isInReceptionRange } from "@/components/utils";
+import { companies, types } from "@/models/constants";
+import { products } from "@/models/mockrefs";
 import FilterListIcon from '@mui/icons-material/FilterList';
-import React, {MouseEvent, useContext, useEffect, useState} from "react";
-import {Context} from "@/app/context";
-import {companies, types} from "@/models/constants";
-import {products} from "@/models/mockrefs";
-import {DatePicker} from "@/components/DatePicker";
-import {Dayjs} from "dayjs";
-import {isInDeliveryRange, isInReceptionRange} from "@/components/utils";
+import { Checkbox, Divider, FormControlLabel, FormGroup, IconButton, Popover, Tooltip, Typography } from "@mui/material";
+import { Dayjs } from "dayjs";
+import { MouseEvent, useContext, useEffect, useState } from "react";
 
-// TODO implement multiple filters for different possible ways to filter to insure intersect works correctly + add date range filter
 // TODO see https://echarts.apache.org/ to implement data visualisation
 export const FilterButton = () => {
   // const {products, setFilteredProducts} = useContext(Context);
-  const {setFilteredProducts} = useContext(Context);
+  const { setFilteredProducts } = useContext(Context);
 
   const [typeFilters, setTypeFilters] = useState<string[]>([]);
   const [companyFilters, setCompanyFilters] = useState<string[]>([]);
@@ -69,7 +68,7 @@ export const FilterButton = () => {
     <>
       <Tooltip title="Filtrer les produits">
         <IconButton onClick={handleClick} aria-describedby={'simple-popover'}>
-          <FilterListIcon/>
+          <FilterListIcon />
         </IconButton>
       </Tooltip>
       <Popover
@@ -85,34 +84,34 @@ export const FilterButton = () => {
           <FormGroup>
             {companies.map(company => (
               <FormControlLabel key={`label-${company}`}
-                                label={company}
-                                control={<Checkbox onClick={() => handleCompanyCheck(company)}
-                                                   key={`checkbox-${company}`}/>}>
+                label={company}
+                control={<Checkbox onClick={() => handleCompanyCheck(company)}
+                  key={`checkbox-${company}`} />}>
               </FormControlLabel>
             ))}
           </FormGroup>
-          <Divider orientation="vertical" flexItem/>
+          <Divider orientation="vertical" flexItem />
           <FormGroup>
             {types.map(type => (
               <FormControlLabel key={`label-${type}`}
-                                label={type}
-                                control={<Checkbox onClick={() => handleTypeCheck(type)} key={`checkbox-${type}`}/>}>
+                label={type}
+                control={<Checkbox onClick={() => handleTypeCheck(type)} key={`checkbox-${type}`} />}>
               </FormControlLabel>
             ))}
           </FormGroup>
-          <Divider orientation="vertical" flexItem/>
+          <Divider orientation="vertical" flexItem />
           <div className={'flex flex-col gap-3'}>
             <Typography variant="h6" className="text-gray-700 font-bold mb-4">
               Date réception
             </Typography>
-            <DatePicker label={'Du'} date={receptionFrom} setDate={setReceptionFrom}/>
-            <DatePicker label={'Au'} date={receptionTo} setDate={setReceptionTo}/>
-            <Divider orientation="horizontal" flexItem/>
+            <DatePicker label={'Du'} date={receptionFrom} setDate={setReceptionFrom} />
+            <DatePicker label={'Au'} date={receptionTo} setDate={setReceptionTo} />
+            <Divider orientation="horizontal" flexItem />
             <Typography variant="h6" className="text-gray-700 font-bold mb-4">
               Date livraison
             </Typography>
-            <DatePicker label={'Du'} date={deliveryFrom} setDate={setDeliveryFrom}/>
-            <DatePicker label={'Au'} date={deliveryTo} setDate={setDeliveryTo}/>
+            <DatePicker label={'Du'} date={deliveryFrom} setDate={setDeliveryFrom} />
+            <DatePicker label={'Au'} date={deliveryTo} setDate={setDeliveryTo} />
           </div>
         </div>
       </Popover>

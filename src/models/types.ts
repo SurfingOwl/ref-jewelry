@@ -1,8 +1,10 @@
-import {Product} from "@/models/Product";
-import {MouseEvent} from "react";
-import {RefProduct} from "@/models/RefProduct";
-import {Dayjs} from "dayjs";
-import {StateSetter} from "@/app/types";
+import { Product } from "@/models/Product";
+import { MouseEvent } from "react";
+import { RefProduct } from "@/models/RefProduct";
+import { Dayjs } from "dayjs";
+import { StateSetter } from "@/app/types";
+import { EChartsOption, SetOptionOpts } from "echarts";
+import { CSSProperties } from "react";
 
 export type Order = 'asc' | 'desc';
 
@@ -39,3 +41,10 @@ export type NumberPickerProps = {
   label: string;
 }
 
+export type ReactEChartProps = {
+  option: EChartsOption;
+  style?: CSSProperties;
+  settings?: SetOptionOpts;
+  loading?: boolean;
+  theme?: "light" | "dark";
+}
