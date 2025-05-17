@@ -1,7 +1,7 @@
 "use server";
 
 import { PutCommand, DeleteCommand, QueryCommand } from "@aws-sdk/lib-dynamodb";
-import { ddb } from "@/lib/dynamodb";
+import { getDynamoClient } from "@/lib/dynamodb";
 import dayjs from "dayjs";
 
 export async function createProduct({
@@ -21,6 +21,8 @@ export async function createProduct({
   receptionDate: string;
   deliveryDate: string;
 }) {
+  const ddb = getDynamoClient();
+
   try {
     const id = crypto.randomUUID();
 
@@ -48,6 +50,8 @@ export async function createProduct({
 }
 
 export async function deleteProduct(user: string, id: string) {
+  const ddb = getDynamoClient();
+
   try {
     await ddb.send(
       new DeleteCommand({
@@ -67,6 +71,8 @@ export async function deleteProduct(user: string, id: string) {
 }
 
 export async function listProducts(user: string) {
+  const ddb = getDynamoClient();
+  
   try {
     const { Items } = await ddb.send(
       new QueryCommand({
